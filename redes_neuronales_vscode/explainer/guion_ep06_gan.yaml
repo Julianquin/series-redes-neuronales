@@ -1,0 +1,99 @@
+# Episodio 06 · Redes generativas adversarias (GAN)
+# Promesas del gancho y su cierre:
+#   cómo aprende compitiendo -> s03 · fórmulas -> s04 · código -> s05 · por qué se atasca -> s07 · distinguir el mapa falso -> s08
+episodio: 6
+arquitectura: GAN
+titulo: Redes generativas adversarias
+cabecera: GAN · REDES ADVERSARIAS
+tarjeta:
+  usos: imágenes sintéticas · superresolución
+  saber: "inestables: dos redes que se persiguen"
+siguiente: GNN
+segmentos:
+  - id: s01
+    escena: hook
+    seccion: ""
+    texto: >-
+      Estos dos mil quinientos pueblos no existen: los ha colocado una red neuronal que nunca ha visto un mapa.
+      Hoy verás cómo aprende compitiendo contra otra red, sus fórmulas, su código, por qué a veces se atasca,
+      y si eres capaz de distinguir el mapa falso.
+    cues: {existen: "existen:", compitiendo: "compitiendo", formulas: "fórmulas,", codigo: "código,", atasca: "atasca,", distinguir: "distinguir"}
+
+  - id: s02
+    escena: problem
+    seccion: El problema
+    texto: >-
+      El autoencoder del episodio anterior generaba mezclas borrosas, porque solo aprende a copiar. Para inventar
+      cosas que parezcan reales necesitamos otra idea: que alguien juzgue si el resultado es creíble.
+    cues: {borrosas: "borrosas,", inventar: "inventar", juzgue: "juzgue"}
+
+  - id: s03
+    escena: idea
+    seccion: Dos redes enfrentadas
+    texto: >-
+      Una GAN enfrenta a dos redes. El generador recibe ruido aleatorio y lo convierte en algo falso: aquí,
+      coordenadas de pueblos. El discriminador recibe pueblos reales y falsos, y tiene que decir cuáles son de verdad.
+      Cada uno aprende de los errores del otro.
+    cues: {dos: "enfrenta", generador: "generador", ruido: "ruido", discriminador: "discriminador", reales: "reales", aprende: "aprende"}
+
+  - id: s04
+    escena: formula
+    seccion: La fórmula
+    texto: >-
+      En fórmulas es un juego: el discriminador quiere maximizar su acierto, el logaritmo de D en los reales
+      más el de uno menos D en los falsos, y el generador quiere minimizarlo. En la práctica, el generador
+      maximiza el logaritmo de D de sus falsificaciones.
+    cues: {juego: "juego:", maximizar: "maximizar", reales: "reales", falsos: "falsos,", minimizarlo: "minimizarlo.", practica: "práctica,"}
+
+  - id: s05
+    escena: code
+    seccion: El código
+    texto: >-
+      En código, cada iteración tiene dos pasos. Primero, el discriminador aprende con un lote de pueblos reales
+      y otro de falsos. Después, el generador produce falsos nuevos y se ajusta para engañarle, con el gradiente
+      que le llega a través del discriminador.
+    cues: {primero: "Primero,", despues: "Después,", gradiente: "gradiente"}
+
+  - id: s06
+    escena: train
+    seccion: Entrenando de verdad
+    texto: >-
+      La entrenamos con los ocho mil municipios de la península y Baleares. Al principio, los puntos caen al azar.
+      El fondo muestra lo que el detective cree real. Poco a poco, el falsificador aprende dónde hay pueblos.
+    cues: {municipios: "municipios", azar: "azar.", fondo: "fondo", aprende: "aprende"}
+
+  - id: s07
+    escena: collapse
+    seccion: Por qué se atasca
+    texto: >-
+      Pero no es un aprendizaje tranquilo. A veces el generador encuentra una zona que engaña al detective y pone
+      ahí casi todos sus puntos: es el colapso de modos. Cada caída de esta curva es una de esas crisis. Al final, se recupera.
+    cues: {tranquilo: "tranquilo.", zona: "zona", colapso: "colapso", caida: "caída", recupera: "recupera."}
+
+  - id: s08
+    escena: challenge
+    seccion: El reto
+    texto: >-
+      ¿Lo distingues? Uno de estos mapas es real y el otro lo ha inventado la red. El de la izquierda es el falso:
+      se sale al mar y a Portugal, porque no sabe dónde acaba España.
+    cues: {distingues: "distingues?", arriba: "izquierda", mar: "mar"}
+
+  - id: s09
+    escena: when
+    seccion: Cuándo usarla
+    texto: >-
+      Las GAN fueron las reinas de la imagen sintética: caras que no existen y superresolución. Pero son inestables
+      y difíciles de entrenar, y los modelos de difusión les han quitado el trono.
+    cues: {reinas: "reinas", inestables: "inestables", difusion: "difusión"}
+
+  - id: s10
+    escena: next
+    seccion: Siguiente
+    texto: >-
+      Hasta ahora, los datos eran tablas, imágenes o secuencias. ¿Y si son conexiones, como amistades o carreteras?
+      Las redes de grafos, en el próximo episodio.
+    cues: {conexiones: "conexiones,", grafos: "grafos,"}
+
+clave: [GAN, generador, discriminador, detective, falsificador, colapso, modos, difusión, grafos]
+pronunciacion:
+  GAN: gan

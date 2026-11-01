@@ -1,0 +1,99 @@
+# Episodio 04 · Transformers y atención (la red que pone tildes)
+# Promesas del gancho y su cierre:
+#   «dónde mira» -> s08 (mapas de atención reales)  · atención -> s03 · fórmulas -> s04 · código -> s06
+#   «palabras que ninguna red puede acertar sola» -> s09 (término/terminó/termino, esta/está, teléfono)
+episodio: 4
+arquitectura: Transf.
+titulo: Transformers y atención
+cabecera: TRANSFORMERS Y ATENCIÓN
+tarjeta:
+  usos: modelos de lenguaje · traducción · visión
+  saber: compara todo con todo, a la vez
+siguiente: AE
+segmentos:
+  - id: s01
+    escena: hook
+    seccion: ""
+    texto: >-
+      ¿Dónde va la tilde en murciélago? Esta red lo sabe, y lo curioso es dónde mira para decidirlo.
+      Hoy verás qué es la atención, sus fórmulas, su código, y por qué hay palabras que ninguna red puede acertar sola.
+    cues: {sabe: "sabe,", mira: "mira", atencion: "atención,", formulas: "fórmulas,", codigo: "código,", ninguna: "ninguna"}
+
+  - id: s02
+    escena: problem
+    seccion: El problema
+    texto: >-
+      Para saber si una letra lleva tilde hay que mirar las demás, sobre todo el final: camión lleva tilde
+      porque termina en ene. Una recurrente llevaría ese dato paso a paso; un transformer lo mira directamente.
+    cues: {demas: "demás,", final: "final:", camion: "camión", ene: "ene.", recurrente: "recurrente", directamente: "transformer"}
+
+  - id: s03
+    escena: attention
+    seccion: La atención
+    texto: >-
+      La idea se llama atención. Cada letra lanza una pregunta, cada letra ofrece una etiqueta, y se comparan
+      todas con todas. Cuanto mejor encajan, más se fija una en otra. Después, cada letra recoge la información
+      de las que más le interesan.
+    cues: {pregunta: "pregunta,", etiqueta: "etiqueta,", todas: "todas.", encajan: "encajan,", recoge: "recoge"}
+
+  - id: s04
+    escena: formulas
+    seccion: Las fórmulas
+    texto: >-
+      En fórmulas: cada letra se convierte en tres vectores, consulta, clave y valor. El parecido es el producto
+      de consultas por claves, dividido por la raíz de la dimensión y normalizado con softmax. Con esos pesos
+      se mezclan los valores.
+    cues: {vectores: "vectores,", producto: "producto", raiz: "raíz", softmax: "softmax.", mezclan: "mezclan"}
+
+  - id: s05
+    escena: block
+    seccion: El bloque
+    texto: >-
+      Como mira todo a la vez, no sabe el orden: hay que darle la posición de cada letra, y aquí también
+      su distancia al final. Tras la atención viene una pequeña red densa, con atajos que suman la entrada a la salida.
+    cues: {orden: "orden:", posicion: "posición", distancia: "distancia", densa: "densa,", atajos: "atajos"}
+
+  - id: s06
+    escena: code
+    seccion: El código
+    texto: >-
+      En código, la atención son tres multiplicaciones, el producto que compara todas con todas, un softmax
+      y la mezcla. El bloque añade los atajos y la capa densa, y apilamos dos.
+    cues: {multiplicaciones: "multiplicaciones,", compara: "compara", mezcla: "mezcla.", bloque: "bloque", apilamos: "apilamos"}
+
+  - id: s07
+    escena: demo
+    seccion: Entrenando de verdad
+    texto: >-
+      La entrenamos con más de cincuenta mil palabras, y acierta el noventa y dos por ciento de las que nunca
+      había visto. Ojo: sin poner ninguna tilde ya acertaría el ochenta y cinco. Con las que sí la llevan, acierta dos de cada tres.
+    cues: {entrenamos: "entrenamos", noventa: "noventa", ojo: "Ojo:", ochenta: "ochenta", dos: "dos"}
+
+  - id: s08
+    escena: where
+    seccion: Dónde mira
+    texto: >-
+      ¿Y dónde mira? Al decidir la tilde de camión, la o se fija sobre todo en la ene del final. Y en la primera
+      capa, tres de cada cuatro miradas van a las tres últimas letras: ha descubierto sola que el final manda.
+    cues: {camion: "camión,", ene: "ene", primera: "primera", tres: "tres", sola: "sola"}
+
+  - id: s09
+    escena: limits
+    seccion: Lo que no puede saber
+    texto: >-
+      Pero hay palabras imposibles sin contexto. Termino puede ser término, termino o terminó, y esta puede
+      ser esta o está. La respuesta está en la frase, no en la palabra: por eso los modelos de lenguaje leen frases enteras.
+    cues: {imposibles: "imposibles", termino: "Termino", esta: "esta", frase: "frase,", modelos: "modelos"}
+
+  - id: s10
+    escena: next
+    seccion: Siguiente
+    texto: >-
+      Su precio: comparar todo con todo crece con el cuadrado de la longitud. En el próximo episodio, los autoencoders: aprender a comprimir.
+    cues: {cuadrado: "cuadrado", autoencoders: "autoencoders:"}
+
+clave: [atención, transformer, consulta, clave, valor, softmax, tilde, murciélago, camión, autoencoders, contexto]
+pronunciacion:
+  softmax: sóft-max
+  transformer: transfórmer
+  autoencoders: autoencóders

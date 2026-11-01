@@ -1,0 +1,104 @@
+# Episodio 08 · Redes de creencias profundas (DBN) · cierre de temporada
+# Promesas del gancho y su cierre:
+#   grabado restaurado -> s09 · aprende soñando -> s04/s08 · fórmulas -> s03/s05 · código -> s06
+#   por qué se apilan -> s07 · cómo resucitaron el deep learning -> s10
+episodio: 8
+arquitectura: DBN
+titulo: Redes de creencias profundas
+cabecera: REDES QUE SUEÑAN (DBN)
+tarjeta:
+  usos: preentrenamiento · restaurar · modelar datos
+  saber: "aprende comparando datos y sueños"
+siguiente: ""
+segmentos:
+  - id: s01
+    escena: hook
+    seccion: ""
+    texto: >-
+      Este grabado tenía el cuarenta por ciento de sus píxeles destrozados, y una red lo ha restaurado. Hoy verás
+      cómo aprende soñando, sus fórmulas, su código, por qué se apilan sus capas y cómo resucitaron el deep learning.
+    cues: {destrozados: "destrozados,", restaurado: "restaurado.", sonando: "soñando,", formulas: "fórmulas,", codigo: "código,", apilan: "apilan", resucitaron: "resucitaron"}
+
+  - id: s02
+    escena: rbm
+    seccion: La pieza básica
+    texto: >-
+      La pieza básica es la máquina de Boltzmann restringida. Tiene una capa visible, los píxeles de un trocito
+      del grabado, y una oculta, que detecta patrones. Las conexiones van en ambos sentidos, pero nunca dentro de una misma capa.
+    cues: {boltzmann: "Boltzmann", visible: "visible,", oculta: "oculta,", sentidos: "sentidos,", dentro: "dentro"}
+
+  - id: s03
+    escena: energy
+    seccion: La energía
+    texto: >-
+      Usa una idea de la física: la energía. La red aprende a dar energía baja a lo que parece un grabado y alta
+      a lo que parece ruido.
+    cues: {energia: "energía.", baja: "baja", alta: "alta"}
+
+  - id: s04
+    escena: dream
+    seccion: Aprender soñando
+    texto: >-
+      Para aprender, compara lo que ve con lo que sueña. Parte de un trocito real, activa las neuronas ocultas y
+      reconstruye los píxeles, una y otra vez: eso es soñar. Después ajusta los pesos para que sus sueños se parezcan a la realidad.
+    cues: {compara: "compara", real: "real,", reconstruye: "reconstruye", sonar: "soñar.", ajusta: "ajusta"}
+
+  - id: s05
+    escena: formula
+    seccion: La fórmula
+    texto: >-
+      En fórmulas, el cambio de cada peso es la correlación entre píxel y neurona con datos reales, menos la misma
+      correlación en sus sueños.
+    cues: {cambio: "cambio", reales: "reales,", menos: "menos", suenos: "misma"}
+
+  - id: s06
+    escena: code
+    seccion: El código
+    texto: >-
+      En código: probabilidades de las neuronas ocultas, un muestreo, la reconstrucción de los píxeles,
+      y la diferencia de correlaciones para actualizar los pesos.
+    cues: {probabilidades: "probabilidades", muestreo: "muestreo,", reconstruccion: "reconstrucción", diferencia: "diferencia"}
+
+  - id: s07
+    escena: stack
+    seccion: Apilar capas
+    texto: >-
+      Una vez entrenada, sus neuronas ocultas son los datos de otra máquina igual, que aprende patrones de patrones.
+      Apilando capas así, de una en una, se forma una red de creencias profunda.
+    cues: {entrenada: "entrenada,", otra: "otra", patrones: "patrones.", apilando: "Apilando", profunda: "profunda."}
+
+  - id: s08
+    escena: learn
+    seccion: Entrenando de verdad
+    texto: >-
+      Así aprende la nuestra con trocitos de veinte por veinte píxeles. Al principio sus sueños son ruido; luego,
+      manchas de tinta. Y el error de reconstrucción baja.
+    cues: {veinte: "veinte", ruido: "ruido;", manchas: "manchas", error: "error"}
+
+  - id: s09
+    escena: restore
+    seccion: La restauración
+    texto: >-
+      Como sabe qué aspecto tiene un grabado, puede repararlo. En una zona que nunca vio, rompemos el cuarenta
+      por ciento de los píxeles, y en seis pasadas recupera el noventa y cinco por ciento.
+    cues: {reparar: "repararlo.", nunca: "nunca", rompemos: "rompemos", seis: "seis"}
+
+  - id: s10
+    escena: history
+    seccion: Su historia
+    texto: >-
+      En dos mil seis, estas redes demostraron que se podían entrenar redes profundas capa a capa, y reavivaron el
+      interés por el deep learning. Hoy apenas se usan, pero ayudaron a abrir el camino a todo lo que has visto en esta serie.
+    cues: {dosmil: "dos", capa: "capa,", reavivaron: "reavivaron", apenas: "apenas", serie: "camino"}
+
+  - id: s11
+    escena: season
+    seccion: Fin de temporada
+    texto: >-
+      Y con esto termina la temporada. Cuéntame qué arquitectura quieres ver después.
+    cues: {termina: "termina", cuentame: "Cuéntame"}
+
+clave: [Boltzmann, energía, soñar, sueños, sueña, DBN, apilando, profunda, temporada, grabado]
+pronunciacion:
+  DBN: de be ene
+  deep learning: dip lérnin

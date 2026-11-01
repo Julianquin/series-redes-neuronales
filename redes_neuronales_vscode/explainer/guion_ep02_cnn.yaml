@@ -1,0 +1,141 @@
+# Episodio 02 · Redes convolucionales (CNN)
+# Promesas del gancho y su cierre:  cómo mira -> s03/s04/s05 · fórmulas -> s03/s05 · código -> s06 · sin color -> s09
+episodio: 2
+formato: 2
+arquitectura: CNN
+titulo: Redes convolucionales
+tarjeta:
+  usos: visión · detección de objetos · imagen médica
+  saber: el mismo filtro recorre toda la imagen
+siguiente: RNN
+lema: "un filtro pequeño que recorre toda la imagen"
+promesas: [cómo mira una imagen, sus fórmulas y su código, qué pasa sin color]
+ficha:
+  - [PARA QUÉ, "visión: clasificar, detectar, segmentar", verde]
+  - [SU IDEA, "el mismo filtro recorre toda la imagen", oro]
+  - [OJO, "mira vecindarios en el espacio, no el orden en el tiempo", rojo]
+  - [DESDE, "LeCun (1989) · AlexNet (2012)", gris]
+  - [NUESTRA RED, "5 cuadros · 92,8 % en color · 72 % en blanco y negro", azul]
+segmentos:
+  - id: s01
+    escena: hook
+    seccion: ""
+    pildora: "un trozo, un cuadro"
+    piso2: {tipo: banner}
+    texto: >-
+      ¿De qué cuadro es este trocito? Una red convolucional lo acierta nueve de cada diez veces.
+      Hoy verás cómo mira una imagen, sus fórmulas, su código, y qué le pasa cuando le quitas el color.
+    cues: {acierta: "acierta", mira: "mira", formulas: "fórmulas,", codigo: "código,"}
+
+  - id: s02
+    escena: problem
+    seccion: El problema
+    pildora: "los vecinos importan"
+    piso2: {tipo: lista, titulo: "POR QUÉ NO VALE UN PERCEPTRÓN", filas: [["cada píxel, una entrada", "ignora a sus vecinos"],
+           ["si los desordenas", "le da exactamente igual"], ["todo conectado con todo", "los pesos se disparan"],
+           ["mueve la imagen 1 píxel", "para él es otra imagen"]]}
+    texto: >-
+      Un perceptrón trata cada píxel por separado: si los desordenas, le da igual. Pero en una imagen
+      lo importante está en los vecinos: un borde, una curva, una textura. Y conectar cada píxel
+      con cada neurona dispara el número de pesos.
+    cues: {separado: "separado:", desordenas: "desordenas,", vecinos: "vecinos:", borde: "borde,", pesos: "conectar"}
+
+  - id: s03
+    escena: filter
+    seccion: El filtro
+    pildora: "un filtro que recorre"
+    piso2: [{tipo: codigo, lineas: [3, 4, 5]}, {tipo: codigo, lineas: [6], ovalo: "np.sum(ventana * K)", cue: suma}]
+    texto: >-
+      La solución es un filtro pequeño, de tres por tres, que recorre la imagen. En cada posición
+      multiplica sus pesos por los píxeles de debajo y lo suma todo. El resultado es un mapa
+      que se enciende donde aparece su patrón.
+    cues: {filtro: "filtro", recorre: "recorre", multiplica: "multiplica", suma: "suma", mapa: "mapa"}
+
+  - id: s04
+    escena: sharing
+    seccion: Pesos compartidos
+    pildora: "los mismos pesos, toda la imagen"
+    piso2: {tipo: lista, titulo: "PESOS COMPARTIDOS", filas: [["una capa densa, aquí", "3.072.000 pesos"],
+           ["un filtro de 3×3", "9 pesos · 27 en color"], ["si el borde se mueve", "el mismo filtro lo encuentra"],
+           ["los 16 de la primera capa", "432 pesos en total"]]}
+    texto: >-
+      Y es el mismo filtro en toda la imagen: si sabe encontrar un borde aquí, lo encuentra en
+      cualquier otro sitio. En lugar de millones de pesos, solo nueve.
+    cues: {mismo: "mismo", cualquier: "cualquier", millones: "millones", nueve: "solo"}
+
+  - id: s05
+    escena: layers
+    seccion: Capas y pooling
+    pildora: "convolución + ReLU + pooling"
+    piso2: {tipo: codigo, lineas: [9, 10, 11, 12], ovalo: "x.max(axis=(1, 3))", ovalo_cue: maximo}
+    texto: >-
+      Una red convolucional apila varias capas. Tras cada convolución viene la ReLU y un pooling, que se
+      queda con el máximo de cada bloque de dos por dos: la imagen se encoge y la red ve más contexto.
+      Las primeras capas detectan bordes, las siguientes combinaciones de bordes, y al final una capa densa decide.
+    cues: {apila: "apila", pooling: "pooling,", maximo: "máximo", encoge: "encoge", bordes: "bordes,", combinaciones: "combinaciones", decide: "final"}
+
+  - id: s06
+    escena: code
+    seccion: El código
+    piso2: {tipo: lista, titulo: "OPERACIÓN → CÓDIGO", filas: [["convolución", "np.sum(ventana * K)"], ["ReLU", "np.maximum(0, mapa)"], ["pooling 2×2", "x.max(axis=(1, 3))"], ["una capa", "max_pool(relu(conv2d(...)))"]]}
+    texto: >-
+      En código, una convolución son dos bucles: recorremos cada posición, multiplicamos la ventana
+      por el filtro y sumamos. El pooling es un cambio de forma y un máximo. Y una capa encadena las tres operaciones.
+    cues: {bucles: "bucles:", multiplicamos: "multiplicamos", pooling: "pooling", capa: "capa"}
+
+  - id: s07
+    escena: learn
+    seccion: Qué aprende
+    pildora: "los filtros se aprenden"
+    piso2: {tipo: lista, titulo: "NADIE LOS DISEÑA", filas: [["al empezar", "nueve números al azar"],
+           ["cómo se ajustan", "retropropagación, como en el ep. 01"], ["qué acaban buscando", "bordes, manchas, texturas"],
+           ["cuántos, en esta red", "dieciséis en la primera capa"]]}
+    texto: >-
+      Lo mejor es que nadie diseña los filtros: empiezan al azar y se ajustan con retropropagación,
+      igual que en el perceptrón. Estos son los dieciséis filtros que aprendió nuestra red.
+    cues: {azar: "azar", retro: "retropropagación,", dieciseis: "dieciséis"}
+
+  - id: s08
+    escena: demo
+    seccion: Entrenando de verdad
+    pildora: "de ciego a 92,8 %"
+    pildora_oro: true
+    piso2: {tipo: curva, nombre: perdida}
+    texto: >-
+      La entrenamos para reconocer cinco cuadros con trocitos que nunca había visto. Empieza a ciegas,
+      y en ochocientas iteraciones acierta el noventa y dos coma ocho por ciento.
+    cues: {cinco: "cinco", nunca: "nunca", ciegas: "ciegas,", acierta: "acierta"}
+
+  - id: s09
+    escena: color
+    seccion: Sin color
+    pildora: "sin color, baja a 72 %"
+    piso2: {tipo: curva, nombre: color, cue: baja}
+    texto: >-
+      ¿Y si le quitamos el color? Una red igual, entrenada en blanco y negro, baja al setenta y dos por ciento.
+      El color le chivaba parte de la respuesta: las redes aprenden el atajo más fácil que encuentran.
+    cues: {quitamos: "quitamos", baja: "baja", chivaba: "chivaba", atajo: "atajo"}
+
+  - id: s10
+    escena: when
+    seccion: Cuándo usarla
+    pildora: "espacio sí, tiempo no"
+    piso2: {tipo: ficha}
+    texto: >-
+      Las convolucionales dominaron la visión por ordenador durante una década, y siguen siendo una opción
+      eficiente para imágenes. Su límite: miran vecindarios en el espacio, pero no recuerdan el orden en el tiempo.
+    cues: {dominaron: "dominaron", eficiente: "eficiente", limite: "límite:", tiempo: "recuerdan"}
+
+  - id: s11
+    escena: next
+    seccion: Siguiente
+    pildora: "siguiente: RNN"
+    piso2: {tipo: ficha}
+    texto: >-
+      Para frases y sonidos necesitamos memoria: las redes recurrentes, en el próximo episodio.
+    cues: {memoria: "memoria:", recurrentes: "recurrentes,"}
+
+clave: [convolucional, convolucionales, filtro, mapa, pooling, ReLU, retropropagación, atajo, recurrentes, vecinos]
+pronunciacion:
+  ReLU: rélu
+  pooling: púlin

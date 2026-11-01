@@ -1,0 +1,53 @@
+# Episodio de prueba del pipeline (§15, fase 2): tres segmentos triviales.
+episodio: 99
+slug: ep99_prueba
+titulo: "Prueba del pipeline"
+duracion_objetivo_min: 0.5
+musica:
+  - pista: "assets/musica/Intergalactic - Alex Jones _ Xander Jones.mp3"
+    desde: s01
+    entrada: s02        # su subida (11.7 s) cae justo al empezar s02
+    transicion: auto
+  - pista: "assets/musica/Vibe Check - Blue Deer Studio.mp3"
+    desde: s03          # fundido cruzado al llegar al puente
+    entrada: s03
+
+segmentos:
+  - id: s01
+    bloque: gancho
+    titulo_capitulo: "El problema"
+    escena: PruebaGancho
+    narracion: >
+      Mira estos puntos. Ninguna línea recta puede separarlos.
+      [pausa:0.4] Y sin embargo, una red neuronal encontrará la frontera ella sola. [pausa:1.0]
+    visual: >
+      Nube de puntos en dos clases. Aparece una recta. En la marca "frontera" la recta se curva.
+    componentes: [NubePuntos]
+    marcas:
+      - {palabra: "recta", evento: aparece_recta}
+      - {palabra: "frontera", evento: frontera_empieza}
+
+  - id: s02
+    bloque: intuicion
+    titulo_capitulo: "La neurona"
+    escena: PruebaNeurona
+    narracion: >
+      Una neurona multiplica cada entrada por un peso, suma el resultado
+      y lo pasa por una función de activación llamada ReLU.
+    visual: >
+      Un círculo con tres entradas; los pesos aparecen en violeta al decir "peso".
+    componentes: [Neurona]
+    marcas:
+      - {palabra: "peso", evento: mostrar_pesos}
+      - {palabra: "suma", evento: mostrar_suma}
+      - {palabra: "activación", evento: mostrar_relu}
+
+  - id: s03
+    bloque: puente
+    titulo_capitulo: "Lo que viene"
+    escena: PruebaPuente
+    narracion: >
+      En el próximo vídeo veremos por qué esto falla con imágenes.
+    visual: >
+      Texto centrado con la pregunta del siguiente episodio.
+    componentes: []

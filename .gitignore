@@ -1,0 +1,30 @@
+.venv*/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# Restos de descomprimir zips bajados desde Windows.
+*Zone.Identifier
+
+# Artefactos de render y del pipeline: se regeneran con produce.py.
+build/
+media/
+episodios/*/build/
+salida/*
+!salida/.gitkeep
+
+# Audio y vídeo: voz generada, música de terceros y vídeos de referencia (§21 del plan).
+*.wav
+*.mp3
+*.m4a
+*.mp4
+*.m4v
+# El análisis de cada pista lo genera lib/musica.py a partir del mp3.
+assets/musica/analisis/
+
+# Tu voz no se publica con el código de las demos.
+assets/voz_referencia/grabaciones/
+
+# Datos regenerables del canal corto (data_tildes.py y extract_municipios.cjs).
+redes_neuronales_vscode/data/tildes_data.json
+redes_neuronales_vscode/data/municipios.json
+redes_neuronales_vscode/data/municipios_geo.json

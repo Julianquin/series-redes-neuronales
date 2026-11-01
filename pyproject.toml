@@ -1,0 +1,22 @@
+[project]
+name = "series-redes-neuronales"
+version = "0.1.0"
+description = "Pipeline local de vídeos educativos sobre arquitecturas de redes neuronales"
+requires-python = ">=3.13,<3.14"
+# Las versiones exactas viven en env/requirements.lock.txt (torch cu128 forzado con env/overrides.txt).
+dependencies = [
+    "torch==2.11.0",
+    "torchaudio==2.11.0",
+    "torchvision==0.26.0",
+    "manim==0.21.0",
+    "chatterbox-tts==0.1.7",
+    "faster-whisper",
+    "kokoro",
+    "jiwer",
+    "torch-geometric",
+    "pyyaml",
+    "pillow",
+    "soundfile",
+    "pandas",
+    "ipykernel",
+]

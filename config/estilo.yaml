@@ -1,0 +1,33 @@
+# Identidad visual de la serie (§6.1). Solo lib/estilo.py lee este archivo;
+# las escenas nunca definen colores ni tipografías a mano.
+fondo: "#111318"
+
+# Paleta semántica: el mismo concepto tiene el mismo color en toda la serie.
+colores:
+  datos: "#4C9BE8"          # datos y entradas (azul)
+  activacion: "#2EC4B6"     # activaciones y flujo hacia delante (verde azulado)
+  gradiente: "#F28C28"      # gradientes y flujo hacia atrás (naranja)
+  pesos: "#9B6BDF"          # pesos y parámetros (violeta)
+  error: "#E5484D"          # error y pérdida (rojo)
+  atencion: "#F5C542"       # atención (amarillo)
+
+# Clases de un dataset (p. ej. las dos lunas). Se distinguen de la paleta semántica:
+# la clase B no es un gradiente aunque sea cálida.
+clases: ["#4C9BE8", "#F2A541", "#6CCB7A", "#D96BA0"]
+
+# Neutros para texto y elementos de apoyo.
+neutros:
+  texto: "#E8EAED"
+  texto_secundario: "#9AA0A6"
+  linea: "#5F6368"
+  panel: "#1C1F26"
+
+tipografia:
+  texto: "Inter"            # fallback: "Source Sans 3"
+  codigo: "DejaVu Sans Mono"   # JetBrains Mono no está instalada; se puede añadir en assets/fuentes
+  tamano_titulo: 48
+  tamano_texto: 32
+  tamano_nota: 24
+
+texto_en_pantalla:
+  max_palabras: 7

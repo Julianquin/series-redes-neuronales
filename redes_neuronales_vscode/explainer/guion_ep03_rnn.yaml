@@ -1,0 +1,98 @@
+# Episodio 03 · Redes recurrentes (RNN y LSTM)
+# Promesas del gancho y su cierre:
+#   el pueblo inventado -> s07 (cómo aprendió a inventarlo) y s08 (su memoria mientras lo escribe)
+#   cómo recuerda -> s03 (estado oculto) y s08 · fórmulas -> s03 y s05 · código -> s06 · por qué olvida -> s04
+episodio: 3
+arquitectura: RNN
+titulo: Redes recurrentes
+tarjeta:
+  usos: texto · voz · series temporales
+  saber: "lee en orden, un paso tras otro"
+siguiente: Transformer
+segmentos:
+  - id: s01
+    escena: hook
+    seccion: ""
+    texto: >-
+      Chiperilla no existe: este pueblo lo ha inventado una red neuronal que lee y escribe letra a letra.
+      Hoy verás cómo recuerda lo que ya ha leído, sus fórmulas, su código, y por qué a veces se le olvida.
+    cues: {inventado: "inventado", recuerda: "recuerda", formulas: "fórmulas,", codigo: "código,", olvida: "veces"}
+
+  - id: s02
+    escena: problem
+    seccion: El problema
+    texto: >-
+      Para adivinar la siguiente letra hay que saber cuáles vinieron antes, y en qué orden. Una convolucional
+      mira ventanas fijas y un perceptrón necesita entradas de tamaño fijo. Pero las palabras, las frases
+      y el audio tienen cualquier longitud.
+    cues: {siguiente: "siguiente", orden: "orden.", convolucional: "convolucional", perceptron: "perceptrón", longitud: "palabras,"}
+
+  - id: s03
+    escena: rnn
+    seccion: El estado oculto
+    texto: >-
+      Una red recurrente lee un elemento cada vez y guarda un resumen de todo lo anterior en su estado
+      oculto, hache. En cada paso combina la letra nueva con ese recuerdo, y el resultado pasa al siguiente.
+      Y usa los mismos pesos en todos los pasos.
+    cues: {lee: "lee", estado: "estado", combina: "combina", pasa: "pasa", mismos: "mismos"}
+
+  - id: s04
+    escena: vanish
+    seccion: Por qué olvida
+    texto: >-
+      Para entrenarla, el error viaja hacia atrás por todos los pasos, y en cada uno se multiplica por esos
+      mismos pesos. Si son pequeños, la señal se desvanece: la red olvida lo que pasó hace mucho.
+    cues: {atras: "atrás", multiplica: "multiplica", pequenos: "pequeños,", desvanece: "desvanece:", olvida: "olvida"}
+
+  - id: s05
+    escena: lstm
+    seccion: La LSTM
+    texto: >-
+      La LSTM lo arregla con una celda de memoria y tres puertas. La de olvido decide qué borrar, la de
+      entrada qué guardar y la de salida qué mostrar. Como la memoria se actualiza sumando, el recuerdo
+      sobrevive muchos pasos.
+    cues: {celda: "celda", puertas: "puertas.", olvido: "olvido", entrada: "entrada", salida: "salida", sumando: "sumando,"}
+
+  - id: s06
+    escena: code
+    seccion: El código
+    texto: >-
+      En código, un paso de LSTM es una multiplicación de matrices que calcula las cuatro puertas a la vez,
+      la actualización de la celda y la del estado. Para leer una palabra, se repite letra a letra.
+    cues: {multiplicacion: "multiplicación", celda: "celda", estado: "estado.", repite: "repite"}
+
+  - id: s07
+    escena: demo
+    seccion: Entrenando de verdad
+    texto: >-
+      La entrenamos con los más de siete mil pueblos de España, indicando su comunidad. Al principio escribe
+      ruido. Poco a poco aprende sílabas, luego palabras, hasta inventar nombres que suenan reales.
+    cues: {pueblos: "pueblos", principio: "principio", silabas: "sílabas,", palabras: "palabras,", inventar: "inventar"}
+
+  - id: s08
+    escena: memory
+    seccion: Su memoria
+    texto: >-
+      Así se ve su memoria mientras escribe Chiperilla: cada columna es una letra y cada fila, una de sus
+      ciento veintiocho neuronas. Cada letra nueva depende de todo lo que hay a su izquierda.
+    cues: {memoria: "memoria", columna: "columna", fila: "fila,", izquierda: "izquierda."}
+
+  - id: s09
+    escena: when
+    seccion: Cuándo usarla
+    texto: >-
+      Las LSTM fueron el estándar en traducción, reconocimiento de voz y series temporales. Pero leen en orden,
+      un paso tras otro, así que cuesta paralelizarlas, y con secuencias muy largas siguen olvidando.
+    cues: {estandar: "estándar", orden: "orden,", paralelizarlas: "paralelizarlas,", largas: "secuencias"}
+
+  - id: s10
+    escena: next
+    seccion: Siguiente
+    texto: >-
+      Los transformers quitaron el bucle: leen todo a la vez y deciden a qué prestar atención. En el próximo episodio.
+    cues: {bucle: "bucle:", atencion: "atención."}
+
+clave: [recurrente, estado, oculto, LSTM, celda, puertas, olvido, transformers, Chiperilla]
+pronunciacion:
+  LSTM: ele ese te eme
+  Chiperilla: Chiperilla

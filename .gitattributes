@@ -1,0 +1,3 @@
+# Los notebooks se guardan sin salidas (el audio incrustado pesa decenas de MB).
+# El filtro "nbstrip" se define en .git/config; sin él, git los guarda tal cual.
+*.ipynb filter=nbstrip

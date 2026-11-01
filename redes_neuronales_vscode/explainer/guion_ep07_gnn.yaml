@@ -1,0 +1,97 @@
+# Episodio 07 · Redes neuronales de grafos (GNN)
+# Promesas del gancho y su cierre:
+#   qué es un grafo -> s03 · paso de mensajes -> s04 · fórmulas -> s05 · código -> s06 · Condado de Treviño -> s09
+episodio: 7
+arquitectura: GNN
+titulo: Redes de grafos
+cabecera: REDES DE GRAFOS (GNN)
+tarjeta:
+  usos: moléculas · redes sociales · recomendaciones
+  saber: "cada nodo aprende de sus vecinos"
+siguiente: DBN
+segmentos:
+  - id: s01
+    escena: hook
+    seccion: ""
+    texto: >-
+      Una red neuronal ha dibujado las comunidades autónomas sin ver ni una coordenada: solo los nombres de los
+      pueblos y quién es vecino de quién. Hoy verás qué es un grafo, cómo se pasan mensajes sus nodos, sus fórmulas,
+      su código y por qué se equivoca con el Condado de Treviño.
+    cues: {dibujado: "dibujado", nombres: "nombres", grafo: "grafo,", mensajes: "mensajes", formulas: "fórmulas,", codigo: "código", trevino: "equivoca"}
+
+  - id: s02
+    escena: problem
+    seccion: El problema
+    texto: >-
+      Las redes anteriores esperaban datos ordenados: tablas, cuadrículas de píxeles, secuencias. Pero muchos datos
+      son conexiones, como amistades, carreteras o moléculas, y cada elemento tiene un número distinto de vecinos.
+    cues: {tablas: "tablas,", cuadriculas: "cuadrículas", secuencias: "secuencias.", conexiones: "conexiones,", vecinos: "distinto"}
+
+  - id: s03
+    escena: graph
+    seccion: El grafo
+    texto: >-
+      Eso es un grafo: nodos unidos por aristas. Aquí cada nodo es un municipio, unido a sus ocho vecinos más cercanos.
+      La red no ve el mapa: solo quién está conectado con quién, y el nombre de cada pueblo.
+    cues: {grafo: "grafo:", municipio: "municipio,", ocho: "ocho", mapa: "mapa:", nombre: "nombre"}
+
+  - id: s04
+    escena: messages
+    seccion: Paso de mensajes
+    texto: >-
+      La idea clave es el paso de mensajes. Cada nodo resume lo que sabe y se lo envía a sus vecinos; después, mezcla
+      lo que recibe con lo suyo. Si se repite dos veces, cada pueblo sabe algo de los vecinos de sus vecinos.
+    cues: {mensajes: "mensajes.", envia: "envía", mezcla: "mezcla", dos: "dos", vecinos2: "repite"}
+
+  - id: s05
+    escena: formula
+    seccion: La fórmula
+    texto: >-
+      En fórmulas, una capa calcula hache prima igual a sigma de A gorro por hache por W. Hache son las características
+      de los nodos, W los pesos que se aprenden, y A gorro la matriz de vecinos, normalizada para que nadie pese más
+      por tener muchos.
+    cues: {capa: "capa", caracteristicas: "características", pesos: "pesos", matriz: "matriz", normalizada: "normalizada"}
+
+  - id: s06
+    escena: code
+    seccion: El código
+    texto: >-
+      En código, mezclar con los vecinos es multiplicar por esa matriz, que es dispersa porque casi todo son ceros.
+      Lo hacemos dos veces, pasamos por una capa densa y terminamos con diecisiete comunidades.
+    cues: {matriz: "matriz,", dispersa: "dispersa", dos: "dos", densa: "densa", diecisiete: "diecisiete"}
+
+  - id: s07
+    escena: demo
+    seccion: Entrenando de verdad
+    texto: >-
+      La comparamos con una red normal que solo ve el nombre. Ambas conocen la comunidad del diez por ciento
+      de los pueblos y deben adivinar el resto. La del nombre se queda en un treinta por ciento; la de grafos llega al noventa y tres.
+    cues: {normal: "normal", diez: "diez", treinta: "treinta", noventa: "noventa"}
+
+  - id: s08
+    escena: trap
+    seccion: La trampa
+    texto: >-
+      Y ojo con la red del nombre: memoriza los pueblos de entrenamiento, y su error en el examen sube. Además, decir siempre
+      Castilla y León ya acertaría un veintiocho por ciento: es la comunidad con más municipios.
+    cues: {memoriza: "memoriza", sube: "sube.", castilla: "Castilla"}
+
+  - id: s09
+    escena: errors
+    seccion: Dónde falla
+    texto: >-
+      ¿Dónde falla la de grafos? En las fronteras y en los enclaves. El Condado de Treviño es de Burgos, pero está
+      rodeado por Álava, y la red dice País Vasco: sus vecinos le dan la respuesta equivocada.
+    cues: {fronteras: "fronteras", trevino: "Treviño", alava: "Álava,", vecinos: "vecinos"}
+
+  - id: s10
+    escena: next
+    seccion: Siguiente
+    texto: >-
+      Los grafos están en moléculas, redes sociales y recomendaciones. Y para cerrar, volvemos a los orígenes:
+      las redes que aprenden soñando, en el último episodio.
+    cues: {moleculas: "moléculas,", origenes: "orígenes:", sonando: "soñando,"}
+
+clave: [grafo, grafos, nodo, nodos, mensajes, vecinos, Treviño, Álava, soñando]
+pronunciacion:
+  GNN: ge ene ene

@@ -1,0 +1,6 @@
+# Solo en la máquina con GPU, para explainer/tts.py
+# PyTorch con soporte Blackwell (RTX 50xx): instalar antes desde el índice cu128 de pytorch.org
+chatterbox-tts     # Chatterbox Multilingual (MIT)
+faster-whisper     # tiempos por palabra y control de pronunciación
+torchaudio
+pyyaml

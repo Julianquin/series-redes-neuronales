@@ -1,0 +1,216 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Ep.01 MLP (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep01_mlp.py",
+      "args": [
+        "prev",
+        "300",
+        "1400",
+        "3400"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Ep.02 CNN (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep02_cnn.py",
+      "args": [
+        "prev",
+        "400",
+        "1500",
+        "3700"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Ep.03 RNN (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep03_rnn.py",
+      "args": [
+        "prev",
+        "400",
+        "2100",
+        "3600"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Ep.04 Transformer (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep04_transformer.py",
+      "args": [
+        "prev",
+        "400",
+        "1900",
+        "3900"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Ep.05 AE (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep05_ae.py",
+      "args": [
+        "prev",
+        "400",
+        "2700",
+        "3800"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Ep.06 GAN (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep06_gan.py",
+      "args": [
+        "prev",
+        "400",
+        "3000",
+        "3500"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Ep.07 GNN (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep07_gnn.py",
+      "args": [
+        "prev",
+        "400",
+        "1900",
+        "4400"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Ep.08 DBN (largo) · previsualizar",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/explainer/ep08_dbn.py",
+      "args": [
+        "prev",
+        "300",
+        "1300",
+        "3500"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Previsualizar Ep.1b Reel · La noche estrellada",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reel_paint.py",
+      "args": [
+        "C",
+        "prev",
+        "100",
+        "300",
+        "520"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Previsualizar Ep.2b Reel · cuadros (CNN)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reel_cuadros.py",
+      "args": [
+        "prev",
+        "40",
+        "300",
+        "470"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Previsualizar Ep.3b Reel · pueblos (LSTM)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reel_pueblos.py",
+      "args": [
+        "prev",
+        "70",
+        "340",
+        "520"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Previsualizar Ep.5b Reel · autoencoder",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reel_ae.py",
+      "args": [
+        "prev",
+        "60",
+        "300",
+        "470"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Previsualizar Ep.6 Reel · GAN España",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reel_gan.py",
+      "args": [
+        "prev",
+        "40",
+        "300",
+        "460"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Previsualizar Ep.7 Reel · GNN comunidades",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reel_gnn.py",
+      "args": [
+        "prev",
+        "40",
+        "280",
+        "470"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Previsualizar Ep.8b Reel · La gran ola",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reel_ola.py",
+      "args": [
+        "prev",
+        "40",
+        "300",
+        "480"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    }
+  ]
+}

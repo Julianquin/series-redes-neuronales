@@ -1,0 +1,5 @@
+# Chatterbox fija torch==2.6.0 en Python < 3.14, sin soporte para Blackwell (sm_120).
+# Sus propios metadatos aceptan torch>=2.9 en 3.14, así que forzamos la build cu128.
+torch==2.11.0+cu128
+torchaudio==2.11.0+cu128
+torchvision==0.26.0+cu128

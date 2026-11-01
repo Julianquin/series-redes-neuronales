@@ -1,0 +1,40 @@
+# Configuración del narrador (§10.3).
+# Motor: qwen3_tts (desde 2026-09-20) o chatterbox_multilingual (el anterior).
+motor: qwen3_tts
+idioma: es
+
+# Intérprete con el que se ejecuta la etapa 2. Qwen3-TTS vive en su propio venv porque pide otra
+# versión de transformers (ver env/setup_qwen.sh). Con Chatterbox, deja este campo vacío.
+python: .venv-qwen/bin/python
+
+referencia: assets/voz_referencia/narrador.wav
+# Qwen necesita la transcripción de la referencia. Se rellena con:
+#   .venv/bin/python -m lib.voz_referencia
+texto_referencia: "Hola, bienvenido. Hoy vamos a entender cómo aprende una red neuronal paso a paso y sin prisas. Primero veremos la intuición, después sólo las matemáticas justas. ¿Preparado? Empezamos con algo muy sencillo, una sola neurona."
+
+semilla: 42
+# Qwen habla a ~0,06 s por carácter, algo rápido para explicar. El audio se estira sin cambiar el
+# tono (ffmpeg atempo) antes del QA, así que lo que se mide es lo que se publica. 1.0 = sin tocar.
+velocidad: 0.92
+pausa_entre_frases_s: 0.25
+sample_rate_salida: 48000
+
+# La regla r → rr y el diccionario se crearon por el acento inglés de Chatterbox.
+# Con Qwen hay que volver a juzgarlo de oído: se empieza sin ellos.
+erre_inicial: false
+
+qwen:
+  modelo: Qwen/Qwen3-TTS-12Hz-1.7B-Base
+  idioma: Spanish            # nombre del idioma tal como lo espera Qwen
+
+chatterbox:
+  parametros:                # calibrados con la toma 2 (configuración C)
+    exaggeration: 0.3
+    cfg_weight: 0.3
+    temperature: 0.7
+
+calibracion:
+  fecha: '2026-09-19'
+  toma: assets/voz_referencia/grabaciones/toma2.m4a
+  sha256_referencia: f24c2d6ec8410ee0c98e3ba2dc05b916efa89258d3db7bf7f354473a0a43ca7e
+  wer_medio: 0.044           # de la calibración con Chatterbox

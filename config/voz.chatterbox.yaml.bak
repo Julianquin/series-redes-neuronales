@@ -1,0 +1,17 @@
+# Configuración del narrador (§10.3). Generado por notebooks/01_calibrar_voz.ipynb.
+motor: chatterbox_multilingual
+idioma: es
+referencia: assets/voz_referencia/narrador.wav
+semilla: 42
+parametros:
+  exaggeration: 0.3
+  cfg_weight: 0.3
+  temperature: 0.7
+pausa_entre_frases_s: 0.25
+erre_inicial: true
+sample_rate_salida: 48000
+calibracion:
+  fecha: '2026-09-19'
+  toma: assets/voz_referencia/grabaciones/toma2.m4a
+  sha256_referencia: f24c2d6ec8410ee0c98e3ba2dc05b916efa89258d3db7bf7f354473a0a43ca7e
+  wer_medio: 0.044

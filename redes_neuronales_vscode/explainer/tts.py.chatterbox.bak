@@ -1,0 +1,62 @@
+"""Voz del episodio con Chatterbox Multilingual + tiempos por palabra con faster-whisper.
+Ejecutar en la máquina con GPU:   python3 tts.py guion_ep01_mlp.yaml --ref voz_referencia.wav [--seed 42] [--solo s03]
+Salida: voz/<guion>/<id>.wav (mono, 44,1 kHz, -16 LUFS) y voz/<guion>/timings.json, que explainer.py usa automáticamente.
+
+⚠ No probado en el entorno donde se escribió (sin GPU ni modelos). Comprueba la firma de generate() de tu versión de
+Chatterbox; los nombres usados aquí (language_id, audio_prompt_path, exaggeration, cfg_weight) son los de su README."""
+import argparse, difflib, json, os, re, subprocess, unicodedata
+import yaml
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+def norm(w): return unicodedata.normalize("NFC", re.sub(r"[^\wáéíóúüñ]", "", w.lower()))
+
+def pronounce(text, table):
+    for k, v in (table or {}).items(): text = re.sub(rf"\b{re.escape(k)}\b", v, text)
+    return text
+
+def align(guion_words, whisper_words, dur):
+    """Asigna a cada palabra del guion el instante de su palabra en Whisper; las no emparejadas se interpolan."""
+    a = [norm(w) for w in guion_words]; b = [norm(w["w"]) for w in whisper_words]; t = [None] * len(a)
+    for blk in difflib.SequenceMatcher(None, a, b, autojunk=False).get_matching_blocks():
+        for k in range(blk.size): t[blk.a + k] = whisper_words[blk.b + k]["t"]
+    known = [(i, x) for i, x in enumerate(t) if x is not None]
+    if not known: return [dur * (i + .5) / len(a) for i in range(len(a))]
+    for i in range(len(a)):
+        if t[i] is None:
+            prev = max((k for k in known if k[0] < i), default=(-1, 0.0)); nxt = min((k for k in known if k[0] > i), default=(len(a), dur))
+            t[i] = prev[1] + (nxt[1] - prev[1]) * (i - prev[0]) / (nxt[0] - prev[0])
+    return t
+
+def main():
+    ap = argparse.ArgumentParser(); ap.add_argument("guion"); ap.add_argument("--ref", required=True); ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--solo", default=None, help="regenerar solo este segmento"); ap.add_argument("--whisper", default="large-v3")
+    args = ap.parse_args(); G = yaml.safe_load(open(args.guion))
+    VOZ = os.path.join(HERE, "voz", os.path.splitext(os.path.basename(args.guion))[0]); os.makedirs(VOZ, exist_ok=True)   # una carpeta por episodio
+    import torch, torchaudio as ta
+    from chatterbox.mtl_tts import ChatterboxMultilingualTTS
+    from faster_whisper import WhisperModel
+    tts = ChatterboxMultilingualTTS.from_pretrained(device="cuda")
+    tp = os.path.join(VOZ, "timings.json"); timings = json.load(open(tp)) if os.path.exists(tp) else {}
+    segs = [s for s in G["segmentos"] if args.solo in (None, s["id"])]
+    for s in segs:
+        torch.manual_seed(args.seed)                                  # misma semilla => misma voz en todos los episodios
+        wav = tts.generate(pronounce(s["texto"], G.get("pronunciacion")), language_id="es", audio_prompt_path=args.ref, exaggeration=0.5, cfg_weight=0.5)
+        raw = os.path.join(VOZ, f"{s['id']}_raw.wav"); ta.save(raw, wav, tts.sr)
+        out = os.path.join(VOZ, f"{s['id']}.wav")
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "44100", "-ac", "1", "-sample_fmt", "s16", out], check=True)
+        os.remove(raw); print("voz:", out)
+    del tts; torch.cuda.empty_cache()
+    wm = WhisperModel(args.whisper, device="cuda", compute_type="float16")
+    for s in segs:
+        p = os.path.join(VOZ, f"{s['id']}.wav")
+        dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", p], capture_output=True, text=True).stdout)
+        res, _ = wm.transcribe(p, language="es", word_timestamps=True)
+        ww = [{"w": w.word.strip(), "t": w.start} for seg in res for w in seg.words]
+        timings[s["id"]] = {"dur": dur, "words": align(s["texto"].split(), ww, dur)}
+        heard = " ".join(x["w"] for x in ww); ratio = difflib.SequenceMatcher(None, norm(s["texto"]), norm(heard)).ratio()
+        flag = "  ⚠ revisar pronunciación" if ratio < 0.85 else ""
+        print(f"{s['id']}: {dur:5.1f}s · parecido guion/Whisper {ratio:.2f}{flag}")
+    json.dump(timings, open(tp, "w"), ensure_ascii=False, indent=1); print("tiempos:", tp)
+
+if __name__ == "__main__":
+    main()

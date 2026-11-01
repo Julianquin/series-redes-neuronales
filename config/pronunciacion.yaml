@@ -1,0 +1,16 @@
+# término: escritura fonética para el TTS (§10.2).
+# Solo afecta al texto enviado al TTS; subtítulos y QA usan el texto original.
+# Cada error detectado en QA se convierte en una entrada nueva.
+backpropagation: "bak-propaguéishon"
+ReLU: "rélu"
+softmax: "sóftmax"
+PyTorch: "páitorch"
+GAN: "gan"
+GNN: "ge ene ene"
+LSTM: "ele ese te eme"
+GRU: "ge erre u"
+MLP: "eme ele pe"
+Transformer: "transfórmer"
+embedding: "embéding"
+dataset: "déitaset"
+# red: "rred"   # era por el acento inglés de Chatterbox; con Qwen3-TTS se revisa de oído

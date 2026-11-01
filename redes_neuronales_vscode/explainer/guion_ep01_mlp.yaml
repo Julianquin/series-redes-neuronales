@@ -1,0 +1,145 @@
+# Episodio 01 · Perceptrón multicapa (MLP)
+# Cada segmento: id, escena (función en ep01_mlp.py), sección (etiqueta en pantalla) y narración.
+# Las animaciones se disparan con «cues»: la palabra de la narración en la que debe ocurrir cada cosa.
+# Pronunciación para el TTS: ver «pronunciacion» al final (solo afecta a la voz, no a los subtítulos).
+episodio: 1
+formato: 2
+arquitectura: MLP
+titulo: Perceptrón multicapa
+tarjeta:
+  usos: datos tabulares · clasificación · regresión
+  saber: es la base de todas las demás redes
+siguiente: CNN
+lema: "la red más sencilla: capas que doblan el espacio"
+promesas: [cómo funciona por dentro, sus fórmulas y su código, cómo pintó este cuadro]
+ficha:
+  - [PARA QUÉ, "datos tabulares: clasificación y regresión", verde]
+  - [SU IDEA, "capas de sumas ponderadas + ReLU", oro]
+  - [OJO, "trata cada entrada por separado: malo con imágenes", rojo]
+  - [DESDE, "Rosenblatt (1958) · retropropagación (1986)", gris]
+  - [NUESTRA RED, "2 → 64 → 64 → 1 · espirales · 96 % de acierto", azul]
+segmentos:
+  - id: s01
+    escena: hook
+    seccion: ""
+    pildora: "una red, un cuadro"
+    piso2: {tipo: banner}
+    texto: >-
+      Esta imagen la ha pintado la red neuronal más sencilla que existe: un perceptrón multicapa.
+      Hoy vas a ver cómo funciona por dentro, con sus fórmulas y su código, y cómo llegó a pintar esto.
+    cues: {red: "red", formulas: "fórmulas", codigo: "código,", cuadro: "pintar"}
+
+  - id: s02
+    escena: problem
+    seccion: El problema
+    pildora: "una recta no basta"
+    piso2: {tipo: formula, nombre: lineal, titulo: "UN MODELO LINEAL", leyenda: [["w·x + b = 0", "la frontera: siempre una recta"], ["σ", "convierte la suma en probabilidad"]]}
+    texto: >-
+      Tenemos puntos de dos colores enrollados en espiral.
+      Un modelo lineal solo puede trazar una línea recta, y ninguna recta los separa.
+      Necesitamos algo capaz de doblar el espacio.
+    cues: {espiral: "espiral", recta: "línea", ninguna: "ninguna", doblar: "doblar"}
+
+  - id: s03
+    escena: neuron
+    seccion: La neurona
+    pildora: "suma ponderada + ReLU"
+    piso2: [{tipo: codigo, lineas: [1]}, {tipo: codigo, lineas: [1, 2], ovalo: "np.maximum(0, z1)", cue: relu}]
+    texto: >-
+      La pieza básica es la neurona. Recibe unas entradas, multiplica cada una por un peso,
+      suma un sesgo y pasa el resultado por una función de activación. La más usada es ReLU:
+      deja pasar los positivos y convierte los negativos en cero. Ese pequeño doblez es lo que la recta no tenía.
+    cues: {entradas: "entradas", peso: "peso", sesgo: "sesgo", activacion: "activación", relu: "ReLU", cero: "cero", doblez: "doblez"}
+
+  - id: s04
+    escena: layers
+    seccion: Las capas
+    pildora: "capas que doblan el espacio"
+    piso2: [{tipo: codigo, lineas: [1, 2]}, {tipo: codigo, lineas: [3, 4], ovalo: "h @ W2 + b2", cue: salida}]
+    texto: >-
+      Si ponemos muchas neuronas en paralelo tenemos una capa, y si apilamos varias capas,
+      un perceptrón multicapa. La información fluye en una sola dirección: de la entrada,
+      por las capas ocultas, hasta la salida. Cada capa dobla el espacio un poco más.
+    cues: {capa: "capa,", apilamos: "apilamos", fluye: "fluye", ocultas: "ocultas", salida: "salida", dobla: "dobla"}
+
+  - id: s05
+    escena: loss
+    seccion: La pérdida
+    pildora: "cuánto se equivoca"
+    piso2: {tipo: codigo, lineas: [5, 6], ovalo: "np.log(p)", ovalo_cue: entropia}
+    texto: >-
+      Al principio los pesos son aleatorios y la red se equivoca. Medimos cuánto con una función
+      de pérdida, la entropía cruzada: castiga mucho estar muy seguro de algo falso.
+    cues: {aleatorios: "aleatorios", perdida: "pérdida,", entropia: "entropía", castiga: "castiga", seguro: "seguro"}
+
+  - id: s06
+    escena: grad
+    seccion: Cómo aprende
+    pildora: "el error viaja hacia atrás"
+    piso2: [{tipo: codigo, lineas: [7, 8, 9, 10, 11]}, {tipo: codigo, lineas: [12, 13, 14, 15, 16], ovalo: "P -= lr * g", cue: pasito}]
+    texto: >-
+      Para aprender, calculamos cómo cambia la pérdida al mover cada peso. Eso es el gradiente,
+      y la regla de la cadena permite calcularlo capa a capa, de la salida hacia atrás:
+      es la retropropagación. Después movemos cada peso un pasito en la dirección contraria.
+    cues: {gradiente: "gradiente,", cadena: "cadena", atras: "atrás:", retro: "retropropagación.", pasito: "pasito", contraria: "contraria"}
+
+  - id: s07
+    escena: code
+    seccion: El código
+    piso2: {tipo: lista, titulo: "FÓRMULA → CÓDIGO", filas: [["z = Wx + b", "X @ W1 + b1"], ["ReLU(z)", "np.maximum(0, z1)"], ["σ(z)", "1 / (1 + np.exp(-z2))"], ["∂L/∂W", "h.T @ dz2 · X.T @ dz1"], ["W ← W − η g", "P -= lr * g"]]}
+    texto: >-
+      Todo esto cabe en unas pocas líneas de NumPy. Primero, la pasada hacia delante:
+      dos multiplicaciones de matrices y dos activaciones. Luego, la pérdida.
+      Después, la retropropagación, que recorre el mismo camino al revés.
+      Y por último, la actualización de los pesos.
+    cues: {delante: "delante:", perdida: "pérdida.", retro: "retropropagación,", actualizacion: "actualización"}
+
+  - id: s08
+    escena: demo
+    seccion: Entrenando de verdad
+    pildora: "de una recta a la espiral"
+    pildora_oro: true
+    piso2: {tipo: curva, nombre: perdida}
+    texto: >-
+      Así se ve entrenando de verdad. Al principio la frontera es casi recta.
+      Con cada iteración se curva un poco más, hasta seguir la espiral. Y la pérdida baja a la vez.
+    cues: {frontera: "frontera", curva: "curva", espiral: "espiral.", perdida: "pérdida"}
+
+  - id: s08b
+    escena: painting
+    seccion: El cuadro
+    pildora: "posición → color"
+    piso2: {tipo: curva, nombre: psnr, cue: normal}
+    texto: >-
+      ¿Y el cuadro del principio? Es el mismo tipo de red con otra tarea: recibe la posición de un punto,
+      x e y, y devuelve su color. Una red normal solo consigue una mancha borrosa. El truco es darle la
+      posición como ondas de muchas frecuencias: así puede dibujar hasta las pinceladas.
+    cues: {posicion: "posición", color: "color.", normal: "normal", borrosa: "borrosa.", ondas: "ondas", pinceladas: "pinceladas."}
+
+  - id: s09
+    escena: when
+    seccion: Cuándo usarlo
+    pildora: "tablas sí, imágenes no"
+    piso2: {tipo: ficha}
+    texto: >-
+      ¿Cuándo usarlo? Con datos tabulares funciona bien,
+      aunque los árboles de decisión potenciados suelen ganarle. Su gran limitación: trata cada
+      entrada por separado. En una imagen, ignora que los píxeles vecinos están relacionados.
+    cues: {tabulares: "tabulares", arboles: "árboles", limitacion: "limitación:", separado: "separado.", vecinos: "vecinos"}
+
+  - id: s10
+    escena: next
+    seccion: Siguiente
+    pildora: "siguiente: CNN"
+    piso2: {tipo: ficha}
+    texto: >-
+      Eso es justo lo que resuelven las redes convolucionales. Las vemos en el próximo episodio.
+    cues: {convolucionales: "convolucionales.", proximo: "próximo"}
+
+# Palabras resaltadas en dorado en los subtítulos
+clave: [Fourier, ondas, perceptrón, multicapa, neurona, ReLU, capa, pérdida, entropía, gradiente, retropropagación, NumPy, convolucionales, espiral]
+
+# Solo para la voz (tts.py): cómo debe pronunciarse
+pronunciacion:
+  ReLU: rélu
+  NumPy: nám-pai

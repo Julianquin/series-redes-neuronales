@@ -1,0 +1,11 @@
+numpy
+pillow
+scipy             # KD-tree y matrices dispersas (Ep. 6 y 7)
+scikit-learn      # dígitos 8x8 (versiones clásicas Ep. 2/5/8)
+networkx          # club de kárate (Ep. 7 clásico)
+# además: ffmpeg en el PATH
+# opcional: node + npm para regenerar data/municipios*.json
+pyyaml            # guiones de los episodios largos (explainer/)
+pygments          # código coloreado en los episodios largos
+matplotlib        # fórmulas (mathtext) en los episodios largos
+wordfreq          # vocabulario español para el Ep. 04 (tildes); solo hace falta para regenerar data/tildes_data.json

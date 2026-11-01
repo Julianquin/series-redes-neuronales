@@ -1,0 +1,8 @@
+work/
+out/
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+# Voz generada por explainer/tts.py (wav + timings.json por episodio).
+explainer/voz/*/

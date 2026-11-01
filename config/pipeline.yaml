@@ -1,0 +1,49 @@
+# Umbrales y ajustes del pipeline (Anexo C).
+render:
+  calidad_final: qh          # 1080p60
+  calidad_borrador: ql
+  procesos_paralelos: auto   # núcleos físicos - 1
+
+voz_qa:
+  wer_max_frase: 0.15
+  intentos_max: 5            # cada intento cuesta ~2 s por frase
+  # Ritmo del narrador: duración ≈ a + b·caracteres. Una frase larga se dice más rápido POR
+  # carácter (los márgenes pesan menos), así que un umbral fijo marcaba frases correctas.
+  # Ajustado con `.venv/bin/python -m lib.ritmo` sobre las frases ya aprobadas; recalcúlalo
+  # al cambiar de voz o de configuración.
+  duracion_modelo: [-0.05, 0.0597]  # Qwen3-TTS, 57 frases aprobadas, r² = 0.95
+  duracion_ratio: [0.7, 1.6]        # en esas frases se observó de 0.82 a 1.32
+  # (Chatterbox daba [0.39, 0.0647]; al cambiar de motor, recalcular con `python -m lib.ritmo`)
+  seg_por_caracter_max: 0.3        # red de seguridad: si el TTS se engancha, se dispara
+  modelo_whisper: large-v3
+
+audio:
+  lufs_objetivo: -14
+  true_peak: -1.5
+  # Nivel de la música respecto a la voz (antes del ducking, que la baja ~10 dB más mientras hablas).
+  # Se aplica por pista midiendo su sonoridad, así todas las pistas quedan igual de discretas.
+  musica_bajo_voz_lu: 12
+  fundido_musica_s: 2.0
+  # Cuánto baja la música cuando hablas (sidechaincompress). Con ratio 10 quedaba inaudible:
+  # ~37 dB bajo la voz. Con 4 baja unos 10 dB, que es lo habitual en divulgación.
+  ducking:
+    umbral: 0.03
+    ratio: 4
+    ataque_ms: 20
+    liberacion_ms: 300
+
+qa_final:
+  tolerancia_duracion_segmento_s: 0.1
+  negro_max_s: 1.0
+  congelado_aviso_s: 8
+  silencio_aviso_s: 2
+  tolerancia_duracion_total: 0.20
+
+guion:
+  max_palabras_frase: 25
+  caracteres_por_segundo: 14
+  tolerancia_duracion: 0.20
+
+subtitulos:
+  max_caracteres_linea: 42
+  max_lineas: 2

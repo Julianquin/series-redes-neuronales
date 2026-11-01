@@ -1,0 +1,249 @@
+# Piloto del episodio 00 (fase 3 del plan): versión corta, sin demo.
+# La demo real (MLP en make_moons + comparación con gradient boosting) entra en la versión completa.
+episodio: 0
+slug: ep00_mlp
+titulo: "Qué aprende realmente una red neuronal"
+duracion_objetivo_min: 4      # piloto corto; la versión completa con demo llega a 12-14
+musica:
+  # Intergalactic (2:37) cubre gancho e intuición; a partir de las matemáticas entra Vibe Check,
+  # con más energía. Así ninguna pista tiene que repetirse dentro del episodio.
+  - pista: "assets/musica/Intergalactic - Alex Jones _ Xander Jones.mp3"
+    desde: s01
+    entrada: s02        # la pista entra al pasar del gancho a la explicación
+    transicion: auto
+  - pista: "assets/musica/Vibe Check - Blue Deer Studio.mp3"
+    desde: s07
+    entrada: s07        # su subida cae al empezar las fórmulas
+
+segmentos:
+  - id: s01
+    bloque: gancho
+    titulo_capitulo: "Un invernadero y dos sensores"
+    escena: GanchoInvernadero
+    narracion: >
+      Esta recta decide cuándo avisar de un hongo en un invernadero.
+      [pausa:0.2] Y se equivoca.
+      [pausa:0.3] Cada punto es un día: temperatura, humedad, y si el hongo apareció.
+      La regla parece sensata: cuanto más calor y más humedad, más riesgo.
+      [pausa:0.2] Pero da igual cómo la muevas.
+      Siempre quedan días en el bando equivocado. Con una sola recta es imposible.
+      [pausa:0.4] Y sin embargo, esta frontera sí acierta. La encontró una red neuronal, ella sola.
+    visual: >
+      Arranque directo: ejes (temperatura 18–32 °C, humedad 40–90 %), los puntos y la recta ya en
+      pantalla, con la nota "datos de ejemplo". En "equivoca" los días mal clasificados se marcan
+      en rojo. En "día" se resalta un punto concreto con sus dos valores. En "riesgo" se sombrea
+      la zona de alerta por encima de la recta. En "muevas" la recta prueba otras inclinaciones,
+      con el contador de errores cambiando. En "imposible" el contador se queda en rojo.
+      En "frontera" la recta se dobla hasta separar ambos grupos y los errores se apagan.
+    componentes: [NubePuntos, FronteraDecision, EjesEtiquetados]
+    marcas:
+      - {palabra: "equivoca", evento: marcar_errores}
+      - {palabra: "día", evento: resaltar_dia}
+      - {palabra: "hongo", ocurrencia: 2, evento: leyenda_clases}
+      - {palabra: "riesgo", evento: zona_alerta}
+      - {palabra: "muevas", evento: probar_rectas}
+      - {palabra: "imposible", evento: contador_final}
+      - {palabra: "frontera", evento: frontera_empieza}
+
+  - id: s02
+    bloque: limitacion
+    titulo_capitulo: "Por qué una recta no basta"
+    escena: LimiteLineal
+    narracion: >
+      Una regla de umbrales solo sabe trazar cortes rectos. Es rápida y se entiende bien,
+      pero cuando los dos grupos se entrelazan, no hay recta que valga.
+      [pausa:0.3] Podrías sentarte a inventar a mano una fórmula curva para este invernadero.
+      El problema es que en el de al lado, con otro cultivo, habría que empezar de cero.
+      Lo que buscamos es algo que encuentre esa forma por su cuenta, a partir de los datos.
+    visual: >
+      A la izquierda, la recta que falla sobre los datos del invernadero. En la marca "curva"
+      aparecen a la derecha tres invernaderos distintos, cada uno con su nube y su frontera
+      curva diferente, para mostrar que no hay una fórmula única.
+    componentes: [NubePuntos, FronteraDecision]
+    marcas:
+      - {palabra: "rectos", evento: corte_recto}
+      - {palabra: "entrelazan", evento: zoom_mezcla}
+      - {palabra: "mano", evento: formula_a_mano}
+      - {palabra: "lado", evento: segundo_invernadero}
+      - {palabra: "cero", evento: mostrar_curvas}
+      - {palabra: "cuenta", evento: pregunta_final}
+
+  - id: s03
+    bloque: intuicion
+    titulo_capitulo: "La neurona, pieza a pieza"
+    escena: NeuronaPasoAPaso
+    narracion: >
+      Empecemos por la pieza más pequeña. Una neurona recibe unos números.
+      [pausa:0.2] Multiplica cada uno por un peso: cuánta atención le presta a esa entrada.
+      Después los suma todos y añade un sesgo, que es lo predispuesta que está a dispararse.
+      [pausa:0.3] Y por último lo pasa por una función de activación.
+      Esta, la ReLU, es tan simple como parece: si el número es negativo, lo deja en cero.
+    visual: >
+      Neurona central con tres entradas. En "peso" aparecen los pesos en violeta sobre cada
+      flecha; en "suma" aparece el sumatorio dentro del cuerpo; en "sesgo" se suma un término
+      aparte; en "activación" aparece la curva de la ReLU a la derecha.
+    componentes: [Neurona]
+    marcas:
+      - {palabra: "pequeña", evento: aparece_neurona}
+      - {palabra: "números", evento: entran_valores}
+      - {palabra: "peso", evento: mostrar_pesos}
+      - {palabra: "atención", evento: resaltar_peso_mayor}
+      - {palabra: "suma", evento: mostrar_suma}
+      - {palabra: "sesgo", evento: mostrar_sesgo}
+      - {palabra: "dispararse", evento: encender_cuerpo}
+      - {palabra: "activación", evento: mostrar_relu}
+      - {palabra: "cero", evento: aplastar_negativos}
+
+  - id: s04
+    bloque: intuicion
+    titulo_capitulo: "Una capa deforma el espacio"
+    escena: CapaDeformaEspacio
+    narracion: >
+      Ahora pon muchas neuronas juntas y tendrás una capa.
+      [pausa:0.2] Aquí está la idea importante del episodio: una capa deforma el espacio.
+      Mira la cuadrícula. Los pesos la estiran y la giran; el sesgo la desplaza;
+      y la activación la dobla, porque aplasta contra cero todo lo negativo.
+      [pausa:0.3] Los puntos no se han movido por su cuenta: es el tapiz de debajo el que se reordena.
+    visual: >
+      Cuadrícula regular con los días del invernadero encima. En "estiran" la cuadrícula se
+      estira y gira; en "desplaza" se desplaza; en "dobla" se pliega sobre sí misma y los dos
+      grupos quedan claramente separados en el nuevo espacio.
+    componentes: [NubePuntos, RejillaDeformable]
+    marcas:
+      - {palabra: "capa", ocurrencia: 1, evento: formar_capa}
+      - {palabra: "deforma", evento: enunciar_idea}
+      - {palabra: "cuadrícula", evento: mostrar_rejilla}
+      - {palabra: "estiran", evento: estirar}
+      - {palabra: "desplaza", evento: desplazar}
+      - {palabra: "dobla", evento: doblar}
+      - {palabra: "negativo", evento: marcar_negativos}
+      - {palabra: "tapiz", evento: resaltar_tapiz}
+
+  - id: s05
+    bloque: intuicion
+    titulo_capitulo: "Apilar capas y separar con una recta"
+    escena: ApilarCapas
+    narracion: >
+      Con una sola capa de dos neuronas no basta.
+      La entrené con diez arranques distintos y siempre se queda en un diez por ciento de error.
+      [pausa:0.3] Así que añadimos una segunda capa, que deforma lo que le llega de la primera.
+      Y ahí el error cae a cero: los dos grupos quedan a un lado y a otro.
+      Entonces sí, una simple recta los separa.
+      [pausa:0.4] Esa recta, vista de vuelta en temperatura y humedad, es la frontera del principio.
+      La red no dibujó una curva: enderezó el problema hasta poder cortarlo recto.
+    visual: >
+      Primero la deformación de una sola capa, con los días mal clasificados en rojo y el
+      contador de error al diez por ciento. En "segunda" entra la segunda capa: la nube se
+      deforma otra vez y el contador baja a cero. En "recta" aparece la recta que separa.
+      En "vuelta" se regresa a temperatura y humedad, y esa recta se ve como la frontera curva
+      del gancho. Los pesos son los de demo/pesos_invernadero.json (entrenamiento real).
+    componentes: [NubePuntos, RedDensa, FronteraDecision]
+    marcas:
+      - {palabra: "basta", evento: una_capa}
+      - {palabra: "arranques", evento: mostrar_intentos}
+      - {palabra: "diez", ocurrencia: 2, evento: error_una_capa}
+      - {palabra: "segunda", evento: segunda_capa}
+      - {palabra: "cero", evento: error_cero}
+      - {palabra: "recta", ocurrencia: 1, evento: recta_final}
+      - {palabra: "separa", evento: resaltar_recta}
+      - {palabra: "vuelta", evento: volver_al_origen}
+
+  - id: s06
+    bloque: intuicion
+    titulo_capitulo: "Aprender es bajar una cuesta"
+    escena: PaisajeYGradiente
+    narracion: >
+      ¿Y quién elige esos pesos? Nadie: empiezan al azar.
+      [pausa:0.2] La red mide su error, cuánto se aleja de la respuesta correcta,
+      y lo dibuja como un paisaje: los pesos son tu posición en él.
+      [pausa:0.3] Aprender es bajar la cuesta.
+      El gradiente indica hacia dónde sube más, así que das un paso en sentido contrario.
+      [pausa:0.2] Y otro. Y otro. Hasta el valle.
+    visual: >
+      Superficie 3D de la función de pérdida en rojo. En "paisaje" aparece una bola sobre ella;
+      en "gradiente" una flecha naranja señala la subida; en "paso" la bola desciende a saltos
+      cortos hasta un valle, mientras la frontera del panel lateral se va ajustando.
+    componentes: [PaisajePerdida, FlechaGradiente, FronteraDecision]
+    marcas:
+      - {palabra: "azar", evento: pesos_al_azar}
+      - {palabra: "error", evento: mostrar_error}
+      - {palabra: "paisaje", evento: mostrar_paisaje}
+      - {palabra: "cuesta", evento: marcar_valle}
+      - {palabra: "gradiente", evento: mostrar_gradiente}
+      - {palabra: "contrario", evento: primer_paso}
+      - {palabra: "valle", evento: descender}
+
+  - id: s07
+    bloque: matematicas
+    titulo_capitulo: "Las dos fórmulas"
+    escena: MatematicasMinimas
+    narracion: >
+      Ahora las dos fórmulas. No hay nada nuevo en ellas:
+      son lo que acabas de ver, escrito en corto.
+      [pausa:0.2] La primera es la capa entera: multiplica por los pesos, suma el sesgo, activa.
+      [pausa:0.3] La segunda es el aprendizaje: cada peso se mueve un poco en contra de su gradiente.
+      Ese "un poco" es la tasa de aprendizaje. Si es muy grande, la bola se sale del valle;
+      si es muy pequeña, tardas una eternidad.
+    visual: >
+      En "primera" aparece y = sigma(Wx + b) término a término, con cada símbolo coloreado
+      como en las escenas anteriores. En "segunda" aparece debajo w ← w − eta por la derivada
+      parcial de L respecto a w. En "tasa" se resalta eta y se muestran dos bolas: una que se
+      pasa de largo y otra que avanza lentísimo.
+    componentes: [PaisajePerdida]
+    marcas:
+      - {palabra: "fórmulas", evento: titulo_formulas}
+      - {palabra: "primera", evento: formula_capa}
+      - {palabra: "pesos", evento: resaltar_pesos}
+      - {palabra: "segunda", evento: formula_actualizacion}
+      - {palabra: "gradiente", evento: resaltar_gradiente}
+      - {palabra: "tasa", evento: resaltar_eta}
+      - {palabra: "grande", evento: paso_grande}
+      - {palabra: "pequeña", evento: paso_pequeno}
+
+  - id: s08
+    bloque: cuando_usar
+    titulo_capitulo: "Cuándo usarla y cuándo no"
+    escena: CuandoUsarla
+    narracion: >
+      Seamos honestos: para el invernadero, esto es pasarse de sofisticado.
+      [pausa:0.2] Con dos sensores y una tabla de datos, un modelo de árboles como gradient boosting
+      suele ganar. Entrena en segundos y además te dice en qué se basa.
+      [pausa:0.3] Las redes brillan cuando los datos tienen estructura: imágenes, sonido, texto.
+      Ahí es donde deformar el espacio compensa de verdad.
+    visual: >
+      Dos tarjetas enfrentadas. En "tabla" se rellena la de la izquierda, "evítala cuando",
+      con datos tabulares y pocas muestras. En "estructura" se rellena la derecha, "úsala cuando",
+      con imágenes, audio y texto.
+    componentes: [TarjetaComparativa]
+    marcas:
+      - {palabra: "honestos", evento: mostrar_tarjetas}
+      - {palabra: "tabla", evento: tarjeta_evitar}
+      - {palabra: "segundos", evento: marcar_rapidez}
+      - {palabra: "basa", evento: marcar_explicable}
+      - {palabra: "estructura", evento: tarjeta_usar}
+      - {palabra: "compensa", evento: cierre_tarjetas}
+
+  - id: s09
+    bloque: puente
+    titulo_capitulo: "Lo que viene"
+    escena: PuenteACNN
+    narracion: >
+      Ya sabes lo que hace una red: deformar el espacio hasta que el problema se vuelva fácil.
+      [pausa:0.3] Pero dos sensores se quedan cortos.
+      Así que le damos una foto de la hoja: 224 por 224 píxeles.
+      [pausa:0.2] Son más de ciento cincuenta mil números.
+      Y la red no sabe cuáles están juntos: para ella, la foto es una fila larguísima sin orden.
+      [pausa:0.3] En el próximo vídeo veremos qué se rompe ahí, y cómo lo arregla una red convolucional.
+    visual: >
+      La frontera curva del invernadero se aleja hasta quedar pequeña. En "foto" aparece la
+      imagen de una hoja que se aplana en una fila larguísima de números y se pierde la
+      estructura espacial. Cierre con la pregunta del siguiente episodio.
+    componentes: [NubePuntos, Matriz]
+    marcas:
+      - {palabra: "deformar", evento: resumen_deformacion}
+      - {palabra: "cortos", evento: sensores_insuficientes}
+      - {palabra: "foto", ocurrencia: 1, evento: mostrar_imagen}
+      - {palabra: "píxeles", evento: medidas_imagen}
+      - {palabra: "números", evento: contar_pixeles}
+      - {palabra: "fila", evento: aplanar_imagen}
+      - {palabra: "rompe", evento: pregunta_final}
